@@ -22,14 +22,14 @@ class TestCalc:
         (-1, 1, -1),
         (1.1, 0.1, 11.0),
         (0, 1, 0),
-        (0, 0, 0)
+        (0, 0, "division by zero")
     ])
     def test_div(self, a, b, expected):
         if b == 0:
             try:
                 self.calc.div(a, b)
             except ZeroDivisionError as e:
-                assert str(e) == "division by zero"
+                assert str(e) == expected
         else:
             result = self.calc.div(a, b)
             assert result == expected
