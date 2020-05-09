@@ -17,18 +17,15 @@ class TestCalc:
         ((1,), 1, 'can only concatenate tuple (not "int") to tuple'),
         (None, 1, "unsupported operand type(s) for +: 'NoneType' and 'int'")
     ])
-    def test_add(self, a, b, expected):
+    def test_add1(self, a, b, expected):
         # a,b 为整数或浮点数
         if isinstance(a, (int, float)) and isinstance(b, (int, float)):
             result = self.calc.add(a, b)
             assert result == expected
         # a,b 为其他数据类型时
         else:
-            try:
-                result = self.calc.add(a, b)
-                assert result == expected
-            except TypeError as e:
-                assert str(e) == expected
+            with pytest.raises(TypeError):
+                self.calc.add(a, b)
 
     @pytest.mark.parametrize("a,b,expected", [
         (9, 3, 3),
@@ -47,22 +44,16 @@ class TestCalc:
     def test_div(self, a, b, expected):
         # 除数为0
         if b == 0:
-            try:
-                result = self.calc.div(a, b)
-                assert result == expected
-            except ZeroDivisionError as e:
-                assert str(e) == expected
+            with pytest.raises(ZeroDivisionError):
+                self.calc.div(a, b)
         # a,b 为整数或浮点数
         elif isinstance(a, (int, float)) and isinstance(b, (int, float)):
             result = self.calc.div(a, b)
             assert result == expected
         # a,b 为其他数据类型
         else:
-            try:
-                result = self.calc.div(a, b)
-                assert result == expected
-            except TypeError as e:
-                assert str(e) == expected
+            with pytest.raises(TypeError):
+                self.calc.div(a, b)
 
 
 if __name__ == '__main__':
