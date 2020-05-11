@@ -11,20 +11,20 @@ class TestCalc:
         (-1, 0, -1),
         (0.1, 0.1, 0.2),
         (1234567890, 987654321, 2222222211),
-        ("a", 1, 'can only concatenate str (not "int") to str'),
-        ([1], 1, 'can only concatenate list (not "int") to list'),
-        ({1}, 1, "unsupported operand type(s) for +: 'set' and 'int'"),
-        ((1,), 1, 'can only concatenate tuple (not "int") to tuple'),
-        (None, 1, "unsupported operand type(s) for +: 'NoneType' and 'int'")
+        ("a", 1, TypeError),
+        ([1], 1, TypeError),
+        ({1}, 1, TypeError),
+        ((1,), 1, TypeError),
+        (None, 1, TypeError)
     ])
-    def test_add1(self, a, b, expected):
+    def add_test(self, a, b, expected):
         # a,b 为整数或浮点数
         if isinstance(a, (int, float)) and isinstance(b, (int, float)):
             result = self.calc.add(a, b)
             assert result == expected
         # a,b 为其他数据类型时
         else:
-            with pytest.raises(TypeError):
+            with pytest.raises(expected):
                 self.calc.add(a, b)
 
     @pytest.mark.parametrize("a,b,expected", [
@@ -34,17 +34,17 @@ class TestCalc:
         (1.1, 0.1, 11.0),
         (0, 1, 0),
         (987654310, 123456789, 987654310/123456789),
-        (0, 0, "division by zero"),
-        ("a", 1, "unsupported operand type(s) for /: 'str' and 'int'"),
-        ([1], 1, "unsupported operand type(s) for /: 'list' and 'int'"),
-        ({1}, 1, "unsupported operand type(s) for /: 'set' and 'int'"),
-        ((1,), 1, "unsupported operand type(s) for /: 'tuple' and 'int'"),
-        (None, 1, "unsupported operand type(s) for /: 'NoneType' and 'int'"),
+        (0, 0, ZeroDivisionError),
+        ("a", 1, TypeError),
+        ([1], 1, TypeError),
+        ({1}, 1, TypeError),
+        ((1,), 1, TypeError),
+        (None, 1, TypeError),
     ])
-    def test_div(self, a, b, expected):
+    def div_test(self, a, b, expected):
         # 除数为0
         if b == 0:
-            with pytest.raises(ZeroDivisionError):
+            with pytest.raises(expected):
                 self.calc.div(a, b)
         # a,b 为整数或浮点数
         elif isinstance(a, (int, float)) and isinstance(b, (int, float)):
@@ -52,9 +52,9 @@ class TestCalc:
             assert result == expected
         # a,b 为其他数据类型
         else:
-            with pytest.raises(TypeError):
+            with pytest.raises(expected):
                 self.calc.div(a, b)
 
 
 if __name__ == '__main__':
-    pytest.main(['-vs','test_calc.py'])
+    pytest.main(["-vs", "-m", "add", "test_calc.py"])

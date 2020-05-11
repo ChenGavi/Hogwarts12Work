@@ -17,7 +17,7 @@ class TestCalc:
         ((1,), 1, 'can only concatenate tuple (not "int") to tuple'),
         (None, 1, "unsupported operand type(s) for +: 'NoneType' and 'int'")
     ])
-    def test_add1(self, a, b, expected):
+    def test_add(self, a, b, expected):
         # a,b 为整数或浮点数
         if isinstance(a, (int, float)) and isinstance(b, (int, float)):
             result = self.calc.add(a, b)
@@ -57,4 +57,4 @@ class TestCalc:
 
 
 if __name__ == '__main__':
-    pytest.main(['-vs','test_calc.py'])
+    pytest.main(["-vs", "test_calc.py::TestCalc::test_div"])
