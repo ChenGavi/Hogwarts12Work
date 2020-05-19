@@ -15,11 +15,10 @@ class AddMember(BasePage):
     _btn_save_locator = (By.CSS_SELECTOR, ".js_btn_save")
 
     _member_table_locator = (By.CSS_SELECTOR, ".member_colRight_memberTable_tr td:nth-child(2)")
-    _page_info_locator = (By.CSS_SELECTOR, "ww_pageNav_info_text")
-    _next_page_locator = (By.CSS_SELECTOR, "ww_commonImg_PageNavArrowRightNormal")
+    _page_info_locator = (By.CSS_SELECTOR, ".ww_pageNav_info_text")
+    _next_page_locator = (By.CSS_SELECTOR, ".ww_commonImg_PageNavArrowRightNormal")
 
     def add_member(self):
-        sleep(3)
         self.send_text(self._username_locator, self._username)
         self.send_text(self._member_acctid_locator, self._member_acctid)
         self.send_text(self._member_phone_locator, self._member_phone)
@@ -30,12 +29,11 @@ class AddMember(BasePage):
         return [int(x) for x in content.split('/', 1)]
 
     def get_member(self, value):
-        cur_page,total_page = self.update_page()
+        cur_page, total_page = self.update_page()
         elements = self.finds(self._member_table_locator)
 
         while True:
             for element in elements:
-                print(element.text)
                 if value == element.text:
                     return True
 
@@ -45,8 +43,5 @@ class AddMember(BasePage):
 
             self.find(self._next_page_locator).click()
 
-
-
-
-    def delete_member(self):
+    def delete_member(self, value):
         pass
