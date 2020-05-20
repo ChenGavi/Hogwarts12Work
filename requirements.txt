@@ -1,5 +1,4 @@
 PyHamcrest==2.0.2
 pytest==5.4.2
 PyYAML==5.3.1
-
 selenium~=3.141.0

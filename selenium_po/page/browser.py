@@ -6,7 +6,6 @@ from selenium_po.page.main_page import MainPage
 
 
 class Browser():
-    driver = None
     _login_url = "https://work.weixin.qq.com/wework_admin/loginpage_wx?from=myhome"
     _main_url = "https://work.weixin.qq.com/wework_admin/frame"
 

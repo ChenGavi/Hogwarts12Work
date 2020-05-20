@@ -15,8 +15,7 @@ class MainPage(BasePage):
         def wait_add_member(x):
             element_len = len(self.finds(self._add_member_button))
             if element_len > 0:
-                print("121212")
                 self.find(self._add_member_button).click()
             return element_len > 0
-        self.wait_for_elememt(wait_add_member)
+        self.wait_for_element(wait_add_member)
         return AddMember(self.driver)
